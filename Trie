@@ -1,0 +1,92 @@
+function Node() {
+	
+	this.is_end = false;
+	this.letters = new Array(27);
+	this.addLetter = function (letter){
+		var index = getIndex(letter);
+		if (this.letters[index] === null){
+		this.letters [index] = new Node();
+		}
+		return this.letters[index];
+	};
+  this.extractLetter = function(letter){
+      var index = getIndex(letter);
+      return this.letters[index]; 
+  }
+}
+ function Trie(){
+ this.begin = null;
+ this.add = function(string){
+  if (this.begin === null){
+  		this.begin = new Node ();
+  		}
+  	var currentNode = this.begin;	
+
+
+
+
+  for (var i = 0; i < string.length; i++){
+  		console.log(string[i]);
+  		
+  		// add letter to the node, to the respective postion.
+    	currentNode = currentNode.addLetter(string[i]);
+
+    }
+    currentNode.is_end = true;
+
+ }
+ this.search = function(string){
+      var currentNode = this.begin;
+
+      for (var i = 0; i < string.length; i++){
+        console.log(string[i]);
+        currentNode = currentNode.extractLetter(string[i]);
+
+        if (currentNode === null) {
+            return [];
+          }
+      }
+    return this.dfs(string, currentNode);
+    
+  };
+
+  this.dfs = function (string, currentNode) {
+      if (currentNode === null){
+      return[];
+      }
+      var wordsFound= [];
+      if (currentNode.is_end){
+      wordsFound = wordsFound.concat([string]);
+      }
+      for (var i = 0; i < 27; i++){
+      var letter = getLetter(i);
+      var neighbour = node.letters[i];
+      var newWords = this.dfs(string+letter, neighbour);
+      wordsFound = wordsFound.concat(newWords);
+      }
+      return wordsFound;
+  }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
