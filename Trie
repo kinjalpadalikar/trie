@@ -1,7 +1,17 @@
+var getIndex = function(letter){
+  return letter.charCodeAt(0) - 97;
+}
+
+var getLetter = function(index){
+  return String.fromCharCode(97 + index);
+}
 function Node() {
 	
 	this.is_end = false;
 	this.letters = new Array(27);
+  for (i = 0; i < 27; i++){
+    this.letters[i] = null;
+  }
 	this.addLetter = function (letter){
 		var index = getIndex(letter);
 		if (this.letters[index] === null){
@@ -60,7 +70,7 @@ function Node() {
       }
       for (var i = 0; i < 27; i++){
       var letter = getLetter(i);
-      var neighbour = node.letters[i];
+      var neighbour = currentNode.letters[i];
       var newWords = this.dfs(string+letter, neighbour);
       wordsFound = wordsFound.concat(newWords);
       }
@@ -69,7 +79,12 @@ function Node() {
 
 }
 
-
+var trie =  new Trie ();
+trie.add("an");
+trie.add("and");
+trie.add("any");
+trie.add("andy");
+console.log (trie.search("and"));
 
 
 
